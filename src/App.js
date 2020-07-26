@@ -1,6 +1,7 @@
 import React from 'react';
 import Result from './component/Result';
 import Keypad from './component/Keypad';
+import Footer from './component/Footer';
 
 class App extends React.Component {
 	state = { result: 0, history: '' };
@@ -63,10 +64,13 @@ class App extends React.Component {
 	render() {
 		const { result, currNum, currOperator, history } = this.state;
 		return (
-			<div className='container pt-3'>
-				<Result result={result} currNum={currNum} currOperator={currOperator} history={history} />
-				<Keypad onClickKey={this.onClickKey} />
-			</div>
+			<React.Fragment>
+				<div className='container pt-3'>
+					<Result result={result} currNum={currNum} currOperator={currOperator} history={history} />
+					<Keypad onClickKey={this.onClickKey} />
+				</div>
+				<Footer />
+			</React.Fragment>
 		);
 	}
 }
