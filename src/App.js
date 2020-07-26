@@ -7,34 +7,16 @@ class App extends React.Component {
 
 	onClickKey = (key) => {
 		if (key === 'C') {
-			this.setState({ result: 0, history: '' });
-			return;
+			return this.reset();
 		}
 
 		if (key === '=') {
-			let evaluatedResult = 0;
-			try {
-				evaluatedResult = eval(this.state.history.split('x').join('*'));
-				if (evaluatedResult === undefined) {
-					evaluatedResult = 0;
-				}
-				this.setState({
-					result: evaluatedResult,
-					history: evaluatedResult
-				});
-			} catch (err) {
-				this.setState({ result: 'Error' });
-			}
-			return;
+			return this.calculate();
 		}
 
 		this.setState({
-			history: this.state.history + key
+			history: this.state.history + key.toString()
 		});
-
-		if (this.isNumber(key)) {
-			this.setState({ result: key });
-		}
 	};
 
 	isNumber = (key) => {
@@ -55,8 +37,30 @@ class App extends React.Component {
 		}
 	};
 
+	calculate() {
+		let evaluatedResult = this.state.history;
+		try {
+			evaluatedResult = eval(
+				evaluatedResult.toString().split('%').join('*0.01').split('+/-').join('*(-1)').split('x').join('*')
+			);
+			if (evaluatedResult === undefined) {
+				evaluatedResult = 0;
+			}
+			this.setState({
+				result: evaluatedResult,
+				history: evaluatedResult
+			});
+		} catch (err) {
+			this.setState({ result: 'Error' });
+		}
+		return;
+	}
+
+	reset() {
+		this.setState({ result: 0, history: '' });
+	}
+
 	render() {
-		console.log(this.state);
 		const { result, currNum, currOperator, history } = this.state;
 		return (
 			<div className='container pt-3'>

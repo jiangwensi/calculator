@@ -9,8 +9,8 @@ const KeyPad = ({ onClickKey }) => {
 				<button className={keyClassName} onClick={(e) => onClickKey('C')}>
 					C
 				</button>
-				<button className={keyClassName} onClick={(e) => onClickKey('*/-')}>
-					*/-
+				<button className={keyClassName} onClick={(e) => onClickKey('+/-')}>
+					+/-
 				</button>
 				<button className={keyClassName} onClick={(e) => onClickKey('%')}>
 					%
